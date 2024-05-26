@@ -1,20 +1,9 @@
-import React from 'react';
+import React from "react";
+import ShareNote from "../components/ShareNote";
 
-const ShareNote = ({ params }) => {
-  const { noteId } = params;
-
-  const handleShare = () => {
-    const url = `${window.location.origin}/note/${noteId}`;
-    navigator.clipboard.writeText(url);
-    alert('Note link copied to clipboard');
-  };
-
-  return (
-    <div>
-      <h2>Share Note</h2>
-      <button onClick={handleShare}>Copy Link</button>
-    </div>
-  );
+const ShareNotePage = (props) => {
+  return <ShareNote {...props} />;
 };
 
-export default ShareNote;
+export default ShareNotePage;
+

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../auth-context";
+import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
+import { Link } from "gatsby";
 import CreateNote from "../components/CreateNote";
 import DeleteNote from "../components/DeleteNote";
-import { Link } from "gatsby";
-import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 
 const NotesPage = () => {
   const { currentUser } = useAuth();
@@ -40,7 +40,7 @@ const NotesPage = () => {
             <p>{note.content}</p>
             <Link to={`/edit-note/${note.id}`}>Edit</Link>
             <DeleteNote noteId={note.id} />
-            <Link to={`/share-note/${note.id}`}>Share</Link>
+            <Link to={`/share-note/${note.id}`}>Share</Link> {/* Ensure noteId is passed here */}
           </li>
         ))}
       </ul>

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Router } from "@reach/router";
 import { AuthProvider } from "../auth-context";
@@ -20,7 +19,7 @@ const App = () => (
       <PrivateRoute path="/create-note" component={CreateNote} />
       <PrivateRoute path="/edit-note/:noteId" component={EditNote} />
       <PrivateRoute path="/search-notes" component={SearchNotes} />
-      <PrivateRoute path="/share-note/:noteId" component={ShareNote} />
+      <PrivateRoute path="/share-note/:noteId" component={ShareNote} /> {/* Correct path */}
       <Login path="/login" />
       <Signup path="/signup" />
     </Router>

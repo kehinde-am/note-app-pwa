@@ -3,18 +3,23 @@ import { db } from "../firebase";
 import { useAuth } from "../auth-context";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { navigate } from "gatsby";
-import { useParams } from "@reach/router";
 
-const EditNote = () => {
-  const { noteId } = useParams(); // Use useParams to access the noteId
+const EditNote = ({ params }) => {
+  const noteId = params['*']; // Access noteId from the wildcard parameter
   const { currentUser } = useAuth();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Note ID: ", noteId); // Log the noteId to verify it's being accessed
     const fetchNote = async () => {
       try {
+        if (!noteId) {
+          console.error("No noteId provided");
+          return;
+        }
+
         const noteDoc = await getDoc(doc(db, "notes", noteId));
         if (noteDoc.exists()) {
           const noteData = noteDoc.data();
@@ -37,11 +42,15 @@ const EditNote = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!noteId) {
+        console.error("No noteId provided for update");
+        return;
+      }
       await updateDoc(doc(db, "notes", noteId), {
         title,
         content,
       });
-      navigate("/app/notes");
+      navigate("/notes"); 
     } catch (error) {
       console.error("Error updating document: ", error);
     }

@@ -1,23 +1,32 @@
 import React from "react";
+import { useParams } from "@reach/router";
 
-const ShareNote = ({ note }) => {
-  const shareNote = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: note.title,
-          text: note.content,
-          url: window.location.href,
+const ShareNote = () => {
+  const { noteId } = useParams(); // Access noteId from the URL parameters
+  console.log("Note ID in ShareNote:", noteId); // Log the noteId for debugging
+
+  const handleCopyLink = () => {
+    if (noteId) {
+      const shareableLink = `${window.location.origin}/share-note/${noteId}`;
+      navigator.clipboard.writeText(shareableLink)
+        .then(() => {
+          console.log("Link copied to clipboard");
+          alert("Link copied to clipboard");
+        })
+        .catch((error) => {
+          console.error("Failed to copy link: ", error);
         });
-      } catch (error) {
-        console.error("Error sharing note:", error);
-      }
     } else {
-      alert("Sharing not supported in this browser.");
+      console.error("noteId is undefined");
     }
   };
 
-  return <button onClick={shareNote}>Share Note</button>;
+  return (
+    <div>
+      <h2>Share Note</h2>
+      <button onClick={handleCopyLink}>Copy Link</button>
+    </div>
+  );
 };
 
 export default ShareNote;
