@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
 import { db } from '../firebase';
-import { navigate } from '@reach/router';
-import { serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useAuth } from '../auth-context';
 
 const CreateNote = () => {
+  const { currentUser } = useAuth();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await db.collection('notes').add({
-      title,
-      content,
-      createdAt: serverTimestamp(),
-    });
-    navigate('/notes');
+    if (!currentUser) {
+      console.error("User not authenticated");
+      return;
+    }
+    try {
+      await addDoc(collection(db, 'notes'), {
+        title,
+        content,
+        userId: currentUser.uid,
+        createdAt: serverTimestamp(),
+      });
+      setTitle('');
+      setContent('');
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
     <div>
-      <h1>Create Note</h1>
+      <h2>Create Note</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>

@@ -4,6 +4,7 @@ import { useAuth } from "../auth-context";
 import CreateNote from "../components/CreateNote";
 import DeleteNote from "../components/DeleteNote";
 import { Link } from "gatsby";
+import { collection, query, where, orderBy, onSnapshot } from "firebase/firestore";
 
 const NotesPage = () => {
   const { currentUser } = useAuth();
@@ -11,17 +12,19 @@ const NotesPage = () => {
 
   useEffect(() => {
     if (currentUser) {
-      const unsubscribe = db
-        .collection("notes")
-        .where("userId", "==", currentUser.uid)
-        .orderBy("createdAt", "desc")
-        .onSnapshot((snapshot) => {
-          const notesData = [];
-          snapshot.forEach((doc) =>
-            notesData.push({ id: doc.id, ...doc.data() })
-          );
-          setNotes(notesData);
-        });
+      const q = query(
+        collection(db, "notes"),
+        where("userId", "==", currentUser.uid),
+        orderBy("createdAt", "desc")
+      );
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const notesData = [];
+        snapshot.forEach((doc) =>
+          notesData.push({ id: doc.id, ...doc.data() })
+        );
+        setNotes(notesData);
+      });
       return unsubscribe;
     }
   }, [currentUser]);
