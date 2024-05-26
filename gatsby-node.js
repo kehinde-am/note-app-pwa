@@ -7,12 +7,17 @@
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
-exports.createPages = async ({ actions }) => {
-  const { createPage } = actions
-  createPage({
-    path: "/using-dsg",
-    component: require.resolve("./src/templates/using-dsg.js"),
-    context: {},
-    defer: true,
-  })
-}
+exports.onCreatePage = async ({ page, actions }) => {
+  const { createPage } = actions;
+
+  if (page.path.match(/^\/edit-note/)) {
+    page.matchPath = "/edit-note/*";
+    createPage(page);
+  }
+
+  if (page.path.match(/^\/share-note/)) {
+    page.matchPath = "/share-note/*";
+    createPage(page);
+  }
+};
+
