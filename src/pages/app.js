@@ -19,7 +19,7 @@ const App = () => (
       <PrivateRoute path="/create-note" component={CreateNote} />
       <PrivateRoute path="/edit-note/:noteId" component={EditNote} />
       <PrivateRoute path="/search-notes" component={SearchNotes} />
-      <PrivateRoute path="/share-note/:noteId" component={ShareNote} /> {/* Correct path */}
+      <PrivateRoute path="/share-note/:noteId" component={ShareNote} />
       <Login path="/login" />
       <Signup path="/signup" />
     </Router>
