@@ -6,4 +6,3 @@ const ShareNotePage = (props) => {
 };
 
 export default ShareNotePage;
-

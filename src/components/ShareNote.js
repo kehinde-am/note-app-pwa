@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "@reach/router";
 
 const ShareNote = () => {
-  const { noteId } = useParams(); // Access noteId from the URL parameters
+  const { noteId } = useParams();
   console.log("Note ID in ShareNote:", noteId); // Log the noteId for debugging
 
   const handleCopyLink = () => {
