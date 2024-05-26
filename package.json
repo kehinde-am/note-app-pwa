@@ -1,18 +1,22 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "note-app-pwa",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A note app with offline access",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Kehinde Amusa <kennyamusa99@gmail.com>",
   "dependencies": {
+    "firebase": "^10.12.1",
     "gatsby": "^5.13.5",
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",
+    "gatsby-plugin-offline": "^6.13.2",
+    "gatsby-plugin-react-helmet": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-source-filesystem": "^5.13.1",
     "gatsby-transformer-sharp": "^5.13.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
     "prettier": "^2.8.8"

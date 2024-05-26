@@ -1,7 +1,12 @@
-/**
- * Implement Gatsby's Browser APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/
- */
+import React from "react";
+import { AuthProvider } from "./src/auth-context";
+import Notifications from "./src/components/Notifications";
 
-// You can delete this file if you're not using it
+export const wrapRootElement = ({ element }) => {
+  return (
+    <AuthProvider>
+      <Notifications />
+      {element}
+    </AuthProvider>
+  );
+};
