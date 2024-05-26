@@ -5,22 +5,36 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { navigate } from "gatsby";
 
 const EditNote = ({ params }) => {
-  const { noteId } = params;
+  const noteId = params['*']; // Access noteId from the wildcard parameter
   const { currentUser } = useAuth();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("Note ID: ", noteId); // Log the noteId to verify it's being accessed
     const fetchNote = async () => {
-      const noteDoc = await getDoc(doc(db, "notes", noteId));
-      if (noteDoc.exists) {
-        const noteData = noteDoc.data();
-        setTitle(noteData.title);
-        setContent(noteData.content);
+      try {
+        if (!noteId) {
+          console.error("No noteId provided");
+          return;
+        }
+
+        const noteDoc = await getDoc(doc(db, "notes", noteId));
+        if (noteDoc.exists()) {
+          const noteData = noteDoc.data();
+          setTitle(noteData.title);
+          setContent(noteData.content);
+          setLoading(false);
+        } else {
+          console.error("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
       }
     };
 
-    if (currentUser) {
+    if (currentUser && noteId) {
       fetchNote();
     }
   }, [currentUser, noteId]);
@@ -28,6 +42,10 @@ const EditNote = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!noteId) {
+        console.error("No noteId provided for update");
+        return;
+      }
       await updateDoc(doc(db, "notes", noteId), {
         title,
         content,
@@ -37,6 +55,10 @@ const EditNote = ({ params }) => {
       console.error("Error updating document: ", error);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>

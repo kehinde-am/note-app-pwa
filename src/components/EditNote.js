@@ -1,44 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { useAuth } from "../auth-context";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { navigate } from "gatsby";
+import { useParams } from "@reach/router";
 
-const EditNote = ({ noteId }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+const EditNote = () => {
+  const { noteId } = useParams(); // Use useParams to access the noteId
+  const { currentUser } = useAuth();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNote = async () => {
-      const doc = await db.collection("notes").doc(noteId).get();
-      if (doc.exists) {
-        const note = doc.data();
-        setTitle(note.title);
-        setContent(note.content);
+      try {
+        const noteDoc = await getDoc(doc(db, "notes", noteId));
+        if (noteDoc.exists()) {
+          const noteData = noteDoc.data();
+          setTitle(noteData.title);
+          setContent(noteData.content);
+          setLoading(false);
+        } else {
+          console.error("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
       }
     };
-    fetchNote();
-  }, [noteId]);
 
-  const updateNote = () => {
-    db.collection("notes").doc(noteId).update({
-      title: title,
-      content: content,
-    });
+    if (currentUser && noteId) {
+      fetchNote();
+    }
+  }, [currentUser, noteId]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await updateDoc(doc(db, "notes", noteId), {
+        title,
+        content,
+      });
+      navigate("/app/notes");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
       <h2>Edit Note</h2>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-      />
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        placeholder="Content"
-      />
-      <button onClick={updateNote}>Update Note</button>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="content">Content</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Update</button>
+      </form>
     </div>
   );
 };
