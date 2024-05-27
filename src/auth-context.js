@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "./firebase";
-import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup, signInAnonymously } from "firebase/auth";
+import { GoogleAuthProvider, FacebookAuthProvider, signInWithPopup} from "firebase/auth";
 
 const AuthContext = React.createContext();
 
@@ -33,8 +33,7 @@ export function AuthProvider({ children }) {
     signInWithFacebook: () => {
       const provider = new FacebookAuthProvider();
       return signInWithPopup(auth, provider);
-    },
-    signInAnonymously: () => signInAnonymously(auth),
+    }
   };
 
   return (

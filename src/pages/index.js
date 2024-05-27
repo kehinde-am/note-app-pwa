@@ -1,22 +1,16 @@
 import React from "react";
-import { Link } from "gatsby";
 import { useAuth } from "../auth-context";
+import Welcome from "../components/Welcome";
 
 const IndexPage = () => {
   const { currentUser } = useAuth();
 
   return (
     <div>
-      <h1>Welcome to the Note Taking PWA</h1>
       {currentUser ? (
-        <div>
-          <p>Hello, {currentUser.email}</p>
-          <Link to="/notes">Go to Notes</Link>
-        </div>
+        <Welcome user={currentUser} />
       ) : (
-        <div>
-          <Link to="/login">Login</Link> or <Link to="/signup">Sign Up</Link>
-        </div>
+        <p>Loading...</p>
       )}
     </div>
   );

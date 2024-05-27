@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../auth-context";
 import { navigate } from "gatsby";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import * as styles from "./login.module.css";
 
 const Login = () => {
-  const { login, signInWithGoogle, signInWithFacebook, signInAnonymously } = useAuth();
+  const { login, signInWithGoogle, signInWithFacebook } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate("/app/notes");
+      navigate("/notes");
     } catch (err) {
       setError("Failed to log in");
     }
@@ -30,27 +33,18 @@ const Login = () => {
   const handleFacebookLogin = async () => {
     try {
       await signInWithFacebook();
-      navigate("/app/notes");
+      navigate("/notes");
     } catch (err) {
       setError("Failed to log in with Facebook");
     }
   };
 
-  const handleAnonymousLogin = async () => {
-    try {
-      await signInAnonymously();
-      navigate("/app/notes");
-    } catch (err) {
-      setError("Failed to log in anonymously");
-    }
-  };
-
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className={styles.loginContainer}>
+      <h2 className={styles.heading}>Login</h2>
+      {error && <p className={styles.error}>{error}</p>}
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -58,9 +52,10 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            className={styles.input}
           />
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -68,13 +63,22 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={styles.input}
           />
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit" className={styles.loginButton}>Log In</button>
       </form>
-      <button onClick={handleGoogleLogin}>Log In with Google</button>
-      <button onClick={handleFacebookLogin}>Log In with Facebook</button>
-      <button onClick={handleAnonymousLogin}>Log In Anonymously</button>
+      <div className={styles.socialLoginContainer}>
+        <button className={styles.socialButton} onClick={handleGoogleLogin}>
+          <FontAwesomeIcon icon={faGoogle} className={styles.icon} /> Log In with Google
+        </button>
+        <button className={styles.socialButton} onClick={handleFacebookLogin}>
+          <FontAwesomeIcon icon={faFacebook} className={styles.icon} /> Log In with Facebook
+        </button>
+      </div>
+      <div className={styles.signUpLink}>
+        Don't have an account? <a href="/signup">Sign Up</a>
+      </div>
     </div>
   );
 };
