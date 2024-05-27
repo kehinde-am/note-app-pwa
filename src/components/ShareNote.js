@@ -1,9 +1,10 @@
+// src/components/ShareNote.js
 import React from "react";
 import { useParams } from "@reach/router";
+import * as styles from "./share-note.module.css";
 
 const ShareNote = () => {
   const { noteId } = useParams();
-  console.log("Note ID in ShareNote:", noteId); // Log the noteId for debugging
 
   const handleCopyLink = () => {
     if (noteId) {
@@ -22,9 +23,10 @@ const ShareNote = () => {
   };
 
   return (
-    <div>
+    <div className={styles.shareNotePage}>
       <h2>Share Note</h2>
       <button onClick={handleCopyLink}>Copy Link</button>
+      <p>Note ID: {noteId}</p>
     </div>
   );
 };

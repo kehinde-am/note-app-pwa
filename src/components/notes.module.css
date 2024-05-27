@@ -1,0 +1,81 @@
+/* src/components/notes.module.css */
+
+.notesPage {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .createNoteForm {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .createNoteForm input,
+  .createNoteForm textarea {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .createNoteForm button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .notesList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .noteItem {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .noteItem h3 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .noteItem p {
+    margin: 0 0 10px;
+    color: #666;
+  }
+  
+  .noteActions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .noteActions a,
+  .noteActions button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #008cba;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .noteActions button {
+    background-color: #f44336;
+  }
+  

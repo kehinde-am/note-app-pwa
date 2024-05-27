@@ -1,17 +1,12 @@
 import React from "react";
-import Signup from "../components/Signup";
-import { Link } from "gatsby";
+import SignUp from "../components/Signup";
 
-const SignupPage = () => {
+const SignUpPage = () => {
   return (
     <div>
-      <h2>Sign Up</h2>
-      <Signup />
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+      <SignUp />
     </div>
   );
 };
 
-export default SignupPage;
+export default SignUpPage;

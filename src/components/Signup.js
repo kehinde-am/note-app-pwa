@@ -1,36 +1,55 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../auth-context";
+import { navigate } from "gatsby";
+import * as styles from "./signup.module.css";
 
-const Signup = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+const SignUp = () => {
   const { signup } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-    } catch {
-      setError("Failed to create an account");
+      await signup(email, password);
+      navigate("/app/notes");
+    } catch (err) {
+      setError("Failed to sign up");
     }
-    setLoading(false);
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" ref={emailRef} required placeholder="Email" />
-        <input type="password" ref={passwordRef} required placeholder="Password" />
-        <button disabled={loading} type="submit">Sign Up</button>
+    <div className={styles.signupContainer}>
+      <h2 className={styles.heading}>Sign Up</h2>
+      {error && <p className={styles.error}>{error}</p>}
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+        <div className={styles.formGroup}>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
+        <button type="submit" className={styles.signupButton}>Sign Up</button>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;

@@ -1,0 +1,50 @@
+/* src/components/edit-note.module.css */
+.editNotePage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.editNotePage h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.editNotePage form {
+  display: flex;
+  flex-direction: column;
+}
+
+.editNotePage form div {
+  margin-bottom: 15px;
+}
+
+.editNotePage form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.editNotePage form input,
+.editNotePage form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.editNotePage form button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.editNotePage form button:hover {
+  background-color: #45a049;
+}

@@ -1,59 +1,46 @@
-import React, { useState } from 'react';
-import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { useAuth } from '../auth-context';
+// src/components/CreateNote.js
+import React, { useState } from "react";
+import { db } from "../firebase";
+import { useAuth } from "../auth-context";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import* as styles from "./notes.module.css";
 
 const CreateNote = () => {
   const { currentUser } = useAuth();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!currentUser) {
-      console.error("User not authenticated");
-      return;
-    }
-    try {
-      await addDoc(collection(db, 'notes'), {
+    if (currentUser) {
+      await addDoc(collection(db, "notes"), {
         title,
         content,
         userId: currentUser.uid,
         createdAt: serverTimestamp(),
       });
-      setTitle('');
-      setContent('');
-    } catch (error) {
-      console.error("Error adding document: ", error);
+      setTitle("");
+      setContent("");
     }
   };
 
   return (
-    <div>
-      <h2>Create Note</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Create</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.createNoteForm}>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <textarea
+        placeholder="Content"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        required
+      />
+      <button type="submit">Create</button>
+    </form>
   );
 };
 

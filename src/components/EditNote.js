@@ -1,8 +1,10 @@
+// src/components/EditNote.js
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../auth-context";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { navigate } from "gatsby";
+import * as styles from "./edit-note.module.css";
 
 const EditNote = ({ params }) => {
   const noteId = params['*']; // Access noteId from the wildcard parameter
@@ -50,7 +52,7 @@ const EditNote = ({ params }) => {
         title,
         content,
       });
-      navigate("/notes"); 
+      navigate("/notes");
     } catch (error) {
       console.error("Error updating document: ", error);
     }
@@ -61,7 +63,7 @@ const EditNote = ({ params }) => {
   }
 
   return (
-    <div>
+    <div className={styles.editNotePage}>
       <h2>Edit Note</h2>
       <form onSubmit={handleSubmit}>
         <div>
