@@ -1,92 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { useAuth } from "../auth-context";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { navigate } from "gatsby";
 
-const EditNote = ({ params }) => {
-  const noteId = params['*']; // Access noteId from the wildcard parameter
-  const { currentUser } = useAuth();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [loading, setLoading] = useState(true);
+import React from "react";
+import EditNote from "../components/EditNote";
 
-  useEffect(() => {
-    console.log("Note ID: ", noteId); // Log the noteId to verify it's being accessed
-    const fetchNote = async () => {
-      try {
-        if (!noteId) {
-          console.error("No noteId provided");
-          return;
-        }
-
-        const noteDoc = await getDoc(doc(db, "notes", noteId));
-        if (noteDoc.exists()) {
-          const noteData = noteDoc.data();
-          setTitle(noteData.title);
-          setContent(noteData.content);
-          setLoading(false);
-        } else {
-          console.error("No such document!");
-        }
-      } catch (error) {
-        console.error("Error fetching document: ", error);
-      }
-    };
-
-    if (currentUser && noteId) {
-      fetchNote();
-    }
-  }, [currentUser, noteId]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!noteId) {
-        console.error("No noteId provided for update");
-        return;
-      }
-      await updateDoc(doc(db, "notes", noteId), {
-        title,
-        content,
-      });
-      navigate("/app/notes");
-    } catch (error) {
-      console.error("Error updating document: ", error);
-    }
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      <h2>Edit Note</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Update</button>
-      </form>
-    </div>
-  );
+const EditNotePage = (props) => {
+  return <EditNote params={props.params} />;
 };
 
-export default EditNote;
+export default EditNotePage;

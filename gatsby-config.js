@@ -11,8 +11,7 @@ module.exports = {
   siteMetadata: {
     title: `Note Taking PWA`,
     description: `A progressive web app for note-taking.`,
-    author: `@Kehinde`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    author: `@Kehinde`
   },
   plugins: [
     `gatsby-plugin-image`,
@@ -38,5 +37,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
+    `gatsby-plugin-postcss`,
   ],
 }

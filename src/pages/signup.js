@@ -1,17 +1,37 @@
+// src/pages/signup.js
 import React from "react";
-import Signup from "../components/Signup";
-import { Link } from "gatsby";
+import { graphql } from "gatsby";
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 
-const SignupPage = () => {
-  return (
-    <div>
-      <h2>Sign Up</h2>
-      <Signup />
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
-    </div>
-  );
-};
+const SignupPage = ({ data }) => (
+  <Layout>
+    <Seo title="Sign Up" />
+    <h1>Sign Up</h1>
+    <form>
+      <label>
+        Email:
+        <input type="email" name="email" />
+      </label>
+      <br />
+      <label>
+        Password:
+        <input type="password" name="password" />
+      </label>
+      <br />
+      <button type="submit">Sign Up</button>
+    </form>
+  </Layout>
+);
+
+export const query = graphql`
+  query SignupPageQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`;
 
 export default SignupPage;
