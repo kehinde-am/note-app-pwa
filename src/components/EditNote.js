@@ -7,14 +7,14 @@ import { navigate } from "gatsby";
 import * as styles from "./edit-note.module.css";
 
 const EditNote = ({ params }) => {
-  const noteId = params['*']; // Access noteId from the wildcard parameter
+  const noteId = params['*']; 
   const { currentUser } = useAuth();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Note ID: ", noteId); // Log the noteId to verify it's being accessed
+    
     const fetchNote = async () => {
       try {
         if (!noteId) {

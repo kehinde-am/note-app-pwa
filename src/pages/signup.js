@@ -1,12 +1,13 @@
 import React from "react";
-import SignUp from "../components/Signup";
+import Signup from "../components/Signup";
+import * as styles from "../components/signup.module.css";
 
-const SignUpPage = () => {
+const SignupPage = () => {
   return (
-    <div>
-      <SignUp />
+    <div className={styles.signupContainer}>
+      <Signup />
     </div>
   );
 };
 
-export default SignUpPage;
+export default SignupPage;

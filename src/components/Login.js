@@ -24,7 +24,7 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
-      navigate("/app/notes");
+      navigate("/notes");
     } catch (err) {
       setError("Failed to log in with Google");
     }
@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <div className={styles.loginForm}>
       <h2 className={styles.heading}>Login</h2>
       {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>

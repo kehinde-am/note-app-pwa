@@ -1,54 +1,44 @@
-.list {
-  display: grid;
-  margin: 0;
-  /* https://css-tricks.com/responsive-layouts-fewer-media-queries/ */
-  --w: 280px;
-  --n: 2;
-  gap: var(--size-gap);
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(max(var(--w), 100%/ (var(--n) + 1) + 0.1%), 1fr)
-  );
-  margin-bottom: var(--size-gap);
-  margin-top: var(--size-gap);
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
 }
 
-.listItem {
-  margin: 0;
-}
-
-.listItem::marker {
-  color: #e95800;
-}
-
-.listItem:nth-child(2)::marker {
-  color: #159bf3;
-}
-
-.listItem:nth-child(3)::marker {
-  color: #8eb814;
-}
-
-.listItem:nth-child(4)::marker {
-  color: #663399;
-}
-
-.listItemLink {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-.listItemDescription {
-  color: var(--color-text);
-  margin-bottom: 0;
-  margin-top: var(--space-1);
-}
-
-.textCenter {
+.introContainer {
   text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.intro {
-  max-width: none;
-  line-height: var(--line-height-loose);
+.heading {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.subheading {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.link {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration:wavy;
+  color: white;
+  background-color: #0015ff;
+  transition: background-color 0.3s ease;
+}
+
+.link:hover {
+  background-color: #2832a7;
 }

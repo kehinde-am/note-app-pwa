@@ -33,7 +33,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#663399`,
         display: `standalone`,
-        icon: `src/images/gatsby-icon.png`, 
+        icon: `src/images/noteapp-icon.png`, 
       },
     },
     `gatsby-plugin-offline`,
