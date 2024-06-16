@@ -1,5 +1,3 @@
-/* notes.module.css */
-
 .notesPage {
   max-width: 1200px;
   margin: 40px auto;
@@ -119,31 +117,31 @@
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  min-width: 100px; 
-  text-align: center; 
+  min-width: 100px;
+  text-align: center;
 }
 
-.noteActions .editButton {
-  background-color: #2196f3; 
+.editButton {
+  background-color: #2196f3;
 }
 
-.noteActions .editButton:hover {
+.editButton:hover {
   background-color: #1976d2;
 }
 
-.noteActions .deleteButton {
-  background-color: #f44336; 
+.deleteButton {
+  background-color: #f44336;
 }
 
-.noteActions .deleteButton:hover {
+.deleteButton:hover {
   background-color: #d32f2f;
 }
 
-.noteActions .shareButton {
-  background-color: #ff9800; 
+.shareButton {
+  background-color: #ff9800;
 }
 
-.noteActions .shareButton:hover {
+.shareButton:hover {
   background-color: #fb8c00;
 }
 
@@ -159,46 +157,8 @@
   font-size: 1.2em;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
-  .notesPage {
-    padding: 10px;
-    margin: 20px auto;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .mainContainer {
     flex-direction: column;
-    gap: 20px;
-  }
-
-  .createNoteForm,
-  .notesList {
-    width: 100%;
-    padding: 0;
-    box-shadow: none;
-  }
-
-  .createNoteForm input,
-  .createNoteForm textarea {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .noteItem {
-    padding: 10px;
-  }
-
-  .noteActions {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .noteActions button {
-    width: 100%;
   }
 }
