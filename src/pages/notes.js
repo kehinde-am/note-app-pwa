@@ -4,16 +4,17 @@ import { useAuth } from "../auth-context";
 import { collection, query, where, orderBy, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import CreateNote from "../components/CreateNote";
 import { Link, navigate } from "gatsby";
-import * as styles from "../components/notes.module.css";
+import * as styles from "../components/notes.module.css"; // Use named export
+import debounce from "lodash.debounce";
 
 const NotesPage = () => {
   const { currentUser, logout } = useAuth();
   const [notes, setNotes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (!currentUser) return;
 
-    console.log('Fetching notes for user:', currentUser.uid);
     const notesRef = collection(db, "notes");
     const q = query(notesRef, where("userId", "==", currentUser.uid), orderBy("createdAt", "desc"));
     
@@ -45,6 +46,15 @@ const NotesPage = () => {
     }
   };
 
+  const handleSearchChange = debounce((e) => {
+    setSearchTerm(e.target.value);
+  }, 300);
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className={styles.notesPage}>
       <div className={styles.header}>
@@ -55,23 +65,35 @@ const NotesPage = () => {
         <div className={styles.createNoteForm}>
           <CreateNote />
         </div>
-        <ul className={styles.notesList}>
-          {notes.map((note) => (
-            <li key={note.id} className={styles.noteItem}>
-              <h3>{note.title}</h3>
-              <p>{note.content}</p>
-              <div className={styles.noteActions}>
-                <Link to={`/edit-note/${note.id}`}>
-                  <button className={styles.editButton}>Edit</button>
-                </Link>
-                <button onClick={() => handleDelete(note.id)} className={styles.deleteButton}>Delete Note</button>
-                <Link to={`/share-note/${note.id}`}>
-                  <button className={styles.shareButton}>Share</button>
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <input
+            type="text"
+            placeholder="Search notes..."
+            onChange={handleSearchChange}
+            className={styles.searchBar}
+          />
+          {filteredNotes.length > 0 ? (
+            <ul className={styles.notesList}>
+              {filteredNotes.map((note) => (
+                <li key={note.id} className={styles.noteItem}>
+                  <h3>{note.title}</h3>
+                  <p>{note.content}</p>
+                  <div className={styles.noteActions}>
+                    <Link to={`/edit-note/${note.id}`}>
+                      <button className={styles.editButton}>Edit</button>
+                    </Link>
+                    <button onClick={() => handleDelete(note.id)} className={styles.deleteButton}>Delete Note</button>
+                    <Link to={`/share-note/${note.id}`}>
+                      <button className={styles.shareButton}>Share</button>
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.notFoundMessage}>No notes found</p>
+          )}
+        </div>
       </div>
     </div>
   );
