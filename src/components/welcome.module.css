@@ -1,40 +1,39 @@
-/* welcome.module.css */
-
+/* Styles for centering the welcome page vertically and horizontally */
 .welcomeContainer {
-  max-width: 600px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Takes the full height of the viewport */
+  background-color: #f4f4f4; /* Optional: Change the background color as needed */
   padding: 20px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
+  text-align: center;
   font-size: 2em;
-  color: #333;
   margin-bottom: 20px;
 }
 
 .subheading {
+  text-align: center;
   font-size: 1.2em;
-  color: #666;
   margin-bottom: 20px;
 }
 
 .notesLink {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #0026ff;
   color: white;
-  font-size: 16px;
+  font-size: 1em;
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .notesLink:hover {
-  background-color: #45a049;
+  background-color: #0017e8;
 }
