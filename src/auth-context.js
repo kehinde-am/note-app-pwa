@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     console.log("Setting up auth state change listener");
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("Auth state changed, current user:", user);
+      // console.log("Auth state changed, current user:", user);
       setCurrentUser(user);
       setLoading(false);
     });
@@ -28,7 +28,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      console.log("Attempting to log in with email:", email);
+      // console.log("Attempting to log in with email:", email);
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login successful");
     } catch (error) {
@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
 
   const signup = async (email, password) => {
     try {
-      console.log("Attempting to sign up with email:", email);
+      // console.log("Attempting to sign up with email:", email);
       await createUserWithEmailAndPassword(auth, email, password);
       console.log("Signup successful");
     } catch (error) {

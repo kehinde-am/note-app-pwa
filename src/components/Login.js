@@ -24,7 +24,7 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
-      navigate("/app/notes");
+      navigate("/notes");
     } catch (err) {
       setError("Failed to log in with Google");
     }
