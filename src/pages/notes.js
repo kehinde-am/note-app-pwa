@@ -1,67 +1,78 @@
-// src/pages/notes.js
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "../auth-context";
+import { collection, query, where, orderBy, onSnapshot, doc, deleteDoc } from "firebase/firestore";
 import CreateNote from "../components/CreateNote";
-import DeleteNote from "../components/DeleteNote";
-import { Link } from "gatsby";
-import * as styles from "../components/notes.module.css"; // Use * as styles
-import { collection, query, where, orderBy, onSnapshot, limit } from "firebase/firestore"; 
+import { Link, navigate } from "gatsby";
+import * as styles from "../components/notes.module.css";
 
 const NotesPage = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [notes, setNotes] = useState([]);
-  console.log('Render NotesPage');
 
   useEffect(() => {
-    console.log('useEffect triggered');
-    if (currentUser) {
-      console.log('Fetching notes for user:', currentUser.uid);
-      const q = query(
-        collection(db, "notes"),
-        where("userId", "==", currentUser.uid),
-        orderBy("createdAt", "desc"),
-        limit(10)
-      );
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        console.log('Firestore snapshot received');
-        const notesData = [];
-        snapshot.forEach((doc) =>
-          notesData.push({ id: doc.id, ...doc.data() })
-        );
-        setNotes(notesData);
-        console.log('Notes set:', notesData);
+    if (!currentUser) return;
+
+    console.log('Fetching notes for user:', currentUser.uid);
+    const notesRef = collection(db, "notes");
+    const q = query(notesRef, where("userId", "==", currentUser.uid), orderBy("createdAt", "desc"));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const notesData = [];
+      snapshot.forEach((doc) => {
+        notesData.push({ ...doc.data(), id: doc.id });
       });
-      return () => {
-        console.log('Unsubscribing from Firestore');
-        unsubscribe();
-      };
-    }
+      setNotes(notesData);
+    });
+
+    return unsubscribe;
   }, [currentUser]);
 
-  if (!currentUser) {
-    return <div>Loading...</div>;
-  }
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
+  const handleDelete = async (noteId) => {
+    try {
+      await deleteDoc(doc(db, "notes", noteId));
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
+  };
 
   return (
     <div className={styles.notesPage}>
-      <h2>Your Notes</h2>
-      <div className={styles.createNoteForm}>
-        <CreateNote />
+      <div className={styles.header}>
+        <h2>Your Notes</h2>
+        <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
       </div>
-      <ul className={styles.notesList}>
-        {notes.map((note) => (
-          <li key={note.id} className={styles.noteItem}>
-            <h3>{note.title}</h3>
-            <p>{note.content}</p>
-            <div className={styles.noteActions}>
-              <Link to={`/edit-note/${note.id}`}>Edit</Link>
-              <DeleteNote noteId={note.id} />
-              <Link to={`/share-note/${note.id}`}>Share</Link>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className={styles.mainContainer}>
+        <div className={styles.createNoteForm}>
+          <CreateNote />
+        </div>
+        <ul className={styles.notesList}>
+          {notes.map((note) => (
+            <li key={note.id} className={styles.noteItem}>
+              <h3>{note.title}</h3>
+              <p>{note.content}</p>
+              <div className={styles.noteActions}>
+                <Link to={`/edit-note/${note.id}`}>
+                  <button className={styles.editButton}>Edit</button>
+                </Link>
+                <button onClick={() => handleDelete(note.id)} className={styles.deleteButton}>Delete Note</button>
+                <Link to={`/share-note/${note.id}`}>
+                  <button className={styles.shareButton}>Share</button>
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
