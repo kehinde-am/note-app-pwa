@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.loginContainer}>
+    <div className={styles.loginForm}>
       <h2 className={styles.heading}>Login</h2>
       {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
