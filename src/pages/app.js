@@ -4,7 +4,7 @@ import { AuthProvider } from "../auth-context";
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import Notes from "../components/Notes";
+import NotesPage from "../components/NotesPage";
 import CreateNote from "../components/CreateNote";
 import EditNote from "../components/EditNote";
 import SearchNotes from "../components/SearchNotes";
@@ -15,7 +15,7 @@ const App = () => (
   <AuthProvider>
     <Notifications />
     <Router>
-      <PrivateRoute path="/notes" component={Notes} />
+      <PrivateRoute path="/notes" component={NotesPage} />
       <PrivateRoute path="/create-note" component={CreateNote} />
       <PrivateRoute path="/edit-note/:noteId" component={EditNote} />
       <PrivateRoute path="/search-notes" component={SearchNotes} />
