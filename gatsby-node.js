@@ -11,3 +11,22 @@ exports.onCreatePage = async ({ page, actions }) => {
     createPage(page);
   }
 };
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === "build-html" || stage === "develop-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /undici/,
+            use: loaders.null(),
+          },
+          {
+            test: /node:stream/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    });
+  }
+};
