@@ -3,7 +3,7 @@ import { useAuth } from "../auth-context";
 import { navigate } from "gatsby";
 import * as styles from "./signup.module.css";
 
-const SignUp = () => {
+const Signup = () => {
   const { signup } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +20,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className={styles.signupContainer}>
+    <div className={styles.signupForm}>
       <h2 className={styles.heading}>Sign Up</h2>
       {error && <p className={styles.error}>{error}</p>}
       <form onSubmit={handleSubmit} className={styles.form}>
@@ -48,8 +48,11 @@ const SignUp = () => {
         </div>
         <button type="submit" className={styles.signupButton}>Sign Up</button>
       </form>
+      <div className={styles.signInLink}>
+        Already have an account? <a href="/login">Log In</a>
+      </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Signup;
