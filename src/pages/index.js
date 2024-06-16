@@ -1,30 +1,33 @@
-import React from "react";
-import { Link } from "gatsby";
-import { useAuth } from "../auth-context";
-import Welcome from "../components/Welcome";
-import * as styles from "../components/index.module.css";
+// src/pages/index.js
+import * as React from "react"
+import { Link } from "gatsby"
+import * as styles from "../components/index.module.css"
+import { useAuth } from "../auth-context"
+import Welcome from "../components/Welcome"
+
+export const Head = () => (
+  <>
+    <title>Home | Note Taking PWA</title>
+    <meta name="description" content="Welcome to the Note Taking PWA" />
+  </>
+)
 
 const IndexPage = () => {
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth()
 
   return (
     <div className={styles.container}>
       {currentUser ? (
         <Welcome user={currentUser} />
       ) : (
-        <div className={styles.introContainer}>
-          <h1 className={styles.heading}>Welcome to the Note Progressive Web App</h1>
-          <p className={styles.subheading}>
-            This is a progressive web app for taking notes efficiently and securely.
-          </p>
-          <div className={styles.linkContainer}>
-            <Link to="/login" className={styles.link}>Login</Link>
-            <Link to="/signup" className={styles.link}>Sign Up</Link>
-          </div>
+        <div>
+          <h1>Welcome to Note Taking PWA</h1>
+          <p>A Progressive Web App for taking notes</p>
+          <Link to="/login">Login</Link> | <Link to="/signup">Sign Up</Link>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
