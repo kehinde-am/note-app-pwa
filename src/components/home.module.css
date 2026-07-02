@@ -1,0 +1,251 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  padding-top: var(--space-3);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.4rem 0.875rem;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--color-primary-light);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  max-width: 12ch;
+  margin-bottom: var(--space-4);
+}
+
+.gradientText {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroSubtitle {
+  max-width: 52ch;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.7;
+  margin-bottom: var(--space-5);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.heroVisual {
+  position: relative;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+}
+
+.previewCard {
+  width: min(100%, 420px);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-strong);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
+  box-shadow: var(--shadow-lg);
+  animation: float 6s ease-in-out infinite;
+}
+
+.previewHeader {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.previewHeader span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.previewHeader span:first-child {
+  background: var(--color-danger);
+}
+
+.previewHeader span:nth-child(2) {
+  background: var(--color-warning);
+}
+
+.previewHeader span:nth-child(3) {
+  background: var(--color-success);
+}
+
+.previewBody {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.previewLineWide,
+.previewLine,
+.previewLineShort {
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.previewLineWide {
+  width: 72%;
+}
+
+.previewLine {
+  width: 100%;
+}
+
+.previewLineShort {
+  width: 45%;
+}
+
+.floatingCard {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: rgba(9, 9, 15, 0.85);
+  backdrop-filter: blur(12px);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+}
+
+.floatingCard svg {
+  color: var(--color-accent);
+}
+
+.floatingCardOne {
+  top: 12%;
+  right: 4%;
+  animation: float 5s ease-in-out infinite;
+}
+
+.floatingCardTwo {
+  bottom: 10%;
+  left: 0;
+  animation: float 7s ease-in-out infinite reverse;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sectionHeader {
+  max-width: 48ch;
+}
+
+.sectionHeader h2 {
+  margin-bottom: var(--space-3);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.featureCard {
+  padding: var(--space-4);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.featureIcon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 1.1rem;
+}
+
+.featureCard h3 {
+  margin-bottom: var(--space-2);
+}
+
+.featureCard p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.cta {
+  text-align: center;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.cta h2 {
+  margin-bottom: var(--space-3);
+}
+
+.cta p {
+  max-width: 42ch;
+  margin: 0 auto var(--space-4);
+}
+
+@media (min-width: 960px) {
+  .hero {
+    grid-template-columns: 1.05fr 0.95fr;
+    min-height: 520px;
+  }
+
+  .heroVisual {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  .floatingCard {
+    display: none;
+  }
+
+  .actions .btn {
+    width: auto;
+    flex: 1;
+    min-width: 140px;
+  }
+}

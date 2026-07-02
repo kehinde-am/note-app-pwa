@@ -1,39 +1,109 @@
-/* Styles for centering the welcome page vertically and horizontally */
-.welcomeContainer {
+.dashboard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Takes the full height of the viewport */
-  background-color: #f4f4f4; /* Optional: Change the background color as needed */
-  padding: 20px;
+  gap: var(--space-5);
 }
 
-.heading {
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
+.heroCard {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.75rem, 4vw, 3rem);
 }
 
-.subheading {
-  text-align: center;
-  font-size: 1.2em;
-  margin-bottom: 20px;
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
 }
 
-.notesLink {
+.greeting {
   display: inline-block;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #0026ff;
-  color: white;
-  font-size: 1em;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-bottom: var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
-.notesLink:hover {
-  background-color: #0017e8;
+.heroCard h1 {
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.highlight {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroCard p {
+  max-width: 48ch;
+  margin-bottom: var(--space-5);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.heroOrb {
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.35),
+    transparent 68%
+  );
+  filter: blur(8px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.quickCard {
+  padding: var(--space-4);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.quickCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.35);
+}
+
+.quickIcon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md);
+  background: rgba(139, 92, 246, 0.15);
+  font-size: 1.1rem;
+}
+
+.quickCard h3 {
+  margin-bottom: var(--space-2);
+}
+
+.quickCard p {
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 640px) {
+  .heroActions .btn {
+    width: 100%;
+  }
 }
