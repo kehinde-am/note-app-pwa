@@ -1,9 +1,26 @@
 {
   "name": "note-app-pwa",
   "private": true,
-  "description": "A note app with offline access",
-  "version": "0.1.0",
+  "description": "A note-taking progressive web app with offline access",
+  "version": "1.0.0",
   "author": "Kehinde Amusa <kennyamusa99@gmail.com>",
+  "license": "0BSD",
+  "keywords": [
+    "gatsby",
+    "pwa",
+    "notes",
+    "firebase",
+    "offline"
+  ],
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
+    "lint": "eslint . --ext .js,.jsx",
+    "serve": "gatsby serve",
+    "start": "gatsby develop"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
@@ -11,41 +28,28 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "firebase": "^10.12.1",
     "gatsby": "^5.13.5",
-    "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-offline": "^6.13.2",
     "gatsby-plugin-postcss": "^6.13.1",
-    "gatsby-plugin-react-helmet": "^6.13.1",
-    "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-transformer-sharp": "^5.13.1",
     "lodash.debounce": "^4.0.8",
     "postcss": "^8.4.38",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
     "prettier": "^2.8.8"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/kehinde-am/note-app-pwa.git"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/kehinde-am/note-app-pwa/issues"
+  },
+  "homepage": "https://github.com/kehinde-am/note-app-pwa#readme",
+  "eslintConfig": {
+    "extends": ["gatsby"]
   }
 }
